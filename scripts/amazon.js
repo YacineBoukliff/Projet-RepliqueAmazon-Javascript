@@ -84,6 +84,15 @@ let matchingItem;
             quantity : 1 
         })
     }
+
+let cartquantity = 0 
+
+    cart.forEach((item) => {
+cartquantity += item.quantity
+    })
+
+    document.querySelector('.cart-quantity').innerHTML = cartquantity
+  
     console.log(cart)
 })
 })
