@@ -25,7 +25,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -41,7 +41,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -56,9 +56,15 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML= productsHTML
 
+
+let breakTimeout;
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button) => {
+
 button.addEventListener('click', () => {
+
+
+
 
     // Ici je stock dans une variable le nom de l'article
     const productId = button.dataset.productId
@@ -73,15 +79,20 @@ let matchingItem;
         }
     })
 
+    let quantite = document.querySelector(`.js-quantity-selector-${productId}`)
+    const quantiteSelecteur = Number(quantite.value)
+    console.log(typeof quantiteSelecteur)
+
+  
     // Ici si y'a déja l'item je lui rajoute une quantité de 1
     if (matchingItem){
-        matchingItem.quantity +=1
+        matchingItem.quantity += quantiteSelecteur
     }
     // Sinon je crée l'item en le poussant dans mon tableau avec son nom et une quantité qui démarre de 1
     else {
         cart.push({
             productId : productId,
-            quantity : 1 
+            quantity : quantiteSelecteur 
         })
     }
 
@@ -93,6 +104,20 @@ cartquantity += item.quantity
 
     document.querySelector('.cart-quantity').innerHTML = cartquantity
   
-    console.log(cart)
+  let added = document.querySelector(`.js-cart-${productId}`)
+
+   console.log(added)
+
+   added.classList.add('js-cart')
+
+   
+
+   clearTimeout(breakTimeout)
+
+breakTimeout =  setTimeout(() => {
+  added.classList.remove('js-cart')
+},2000)
+ 
 })
 })
+
