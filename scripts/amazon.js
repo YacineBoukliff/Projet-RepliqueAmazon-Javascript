@@ -1,5 +1,6 @@
-import { cart } from "../data/cart.js"
+import { cart, AddToCart } from "../data/cart.js"
 import { products } from "../data/products.js"
+
 
 let productsHTML = ''
 
@@ -61,66 +62,43 @@ document.querySelector('.js-products-grid').innerHTML= productsHTML
 
 
 let breakTimeout;
+
+function updateCartQuantity (){
+  
+let cartquantity = 0 
+
+cart.forEach((cartItem) => {
+cartquantity += cartItem.quantity
+})
+
+document.querySelector('.cart-quantity').innerHTML = cartquantity
+
+}
+
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button) => {
 
 button.addEventListener('click', () => {
+  const productId = button.dataset.productId
 
+let quantite = document.querySelector(`.js-quantity-selector-${productId}`)
+const quantiteSelecteur = Number(quantite.value)
+console.log(typeof quantiteSelecteur)
 
+AddToCart(productId, quantiteSelecteur)
+updateCartQuantity()
 
-
-    // Ici je stock dans une variable le nom de l'article
-    const productId = button.dataset.productId
-// Ici je crée une variable undefined pour notre condition
-let matchingItem;
-// Ici je boucle danq mon tableau cart 
-    cart.forEach((item) => {
-        // Ici je regarde si les deux noms sont identique
-        if (productId === item.productId){
-// Alors je stock l'item dans la variable que j'ai faite
-            matchingItem = item 
-        }
-    })
-
-    let quantite = document.querySelector(`.js-quantity-selector-${productId}`)
-    const quantiteSelecteur = Number(quantite.value)
-    console.log(typeof quantiteSelecteur)
-
-  
-    // Ici si y'a déja l'item je lui rajoute une quantité de 1
-    if (matchingItem){
-        matchingItem.quantity += quantiteSelecteur
-    }
-    // Sinon je crée l'item en le poussant dans mon tableau avec son nom et une quantité qui démarre de 1
-    else {
-        cart.push({
-            productId : productId,
-            quantity : quantiteSelecteur 
-        })
-    }
-
-let cartquantity = 0 
-
-    cart.forEach((item) => {
-cartquantity += item.quantity
-    })
-
-    document.querySelector('.cart-quantity').innerHTML = cartquantity
-  
   let added = document.querySelector(`.js-cart-${productId}`)
 
    console.log(added)
 
    added.classList.add('js-cart')
 
-   
-
    clearTimeout(breakTimeout)
 
 breakTimeout =  setTimeout(() => {
   added.classList.remove('js-cart')
 },2000)
- 
 })
 })
 
