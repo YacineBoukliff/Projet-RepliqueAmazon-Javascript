@@ -175,3 +175,17 @@ document.querySelectorAll('.js-update-link')
 
     });
   });
+
+
+  // Librairie DayJS 
+
+  dayjs.locale('fr');
+
+ 
+  let today = dayjs();
+
+  // Ajouter 7 jours
+  let Sept = today.add(7, "days");
+
+  // Afficher la date au format français
+  console.log(Sept.format("dddd, D MMMM"));
