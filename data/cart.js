@@ -39,10 +39,9 @@ export function AddToCart (productId, quantiteSelecteur){
       }
 
       saveToStorage()
+
+   
   }
-
-
-
 
   export function removeFromCart(productId){
     const newCart = []

@@ -1,4 +1,5 @@
-import { cart, AddToCart } from "../data/cart.js"
+import { cart, AddToCart,
+   } from "../data/cart.js"
 import { products } from "../data/products.js"
 import { formatCurrency } from "./utils/money.js";
 
@@ -71,6 +72,8 @@ cartquantity += cartItem.quantity
 })
 document.querySelector('.cart-quantity').innerHTML = cartquantity
 }
+
+updateCartQuantity();
 
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button) => {
