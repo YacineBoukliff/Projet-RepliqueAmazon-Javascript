@@ -1,6 +1,6 @@
-import { cart, AddToCart,
-   } from "../data/cart.js"
-import { products } from "../data/products.js"
+import {cart, addToCart,
+  calculateCartQuantity} from '../data/cart.js';
+import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 let productsHTML = ''
@@ -63,15 +63,11 @@ document.querySelector('.js-products-grid').innerHTML= productsHTML
 
 let breakTimeout;
 
-function updateCartQuantity (){
-  
-let cartquantity = 0 
-
-cart.forEach((cartItem) => {
-cartquantity += cartItem.quantity
-})
-document.querySelector('.cart-quantity').innerHTML = cartquantity
+function updateCartQuantity() {
+  const cartQuantity = calculateCartQuantity();
+  document.querySelector('.cart-quantity').innerHTML = cartQuantity; // Changez 'cartquantity' en 'cartQuantity'
 }
+
 
 updateCartQuantity();
 
@@ -85,7 +81,7 @@ let quantite = document.querySelector(`.js-quantity-selector-${productId}`)
 const quantiteSelecteur = Number(quantite.value)
 console.log(typeof quantiteSelecteur)
 
-AddToCart(productId, quantiteSelecteur)
+addToCart(productId, quantiteSelecteur)
 updateCartQuantity()
 
   let added = document.querySelector(`.js-cart-${productId}`)
