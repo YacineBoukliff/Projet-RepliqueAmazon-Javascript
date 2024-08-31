@@ -6,6 +6,7 @@ import {
 } from '../data/cart.js';
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+import { deliveryOptions } from '../data/deliveryOptions.js';
 
 let cartSummaryHTML = ''
 
@@ -62,53 +63,52 @@ cart.forEach((cartItem) => {
 
               <div class="delivery-options">
                 <div class="delivery-options-title">
-                  Choose a delivery option:
+                  Choissisez une date de livraison :
                 </div>
-                <div class="delivery-option">
-                  <input type="radio" checked
-                    class="delivery-option-input"
-                    name="delivery-option-${matchingProduct.id}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Tuesday, June 21
-                    </div>
-                    <div class="delivery-option-price">
-                      FREE Shipping
-                    </div>
-                  </div>
-                </div>
-                <div class="delivery-option">
-                  <input type="radio"
-                    class="delivery-option-input"
-                    name="delivery-option-${matchingProduct.id}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Wednesday, June 15
-                    </div>
-                    <div class="delivery-option-price">
-                      $4.99 - Shipping
-                    </div>
-                  </div>
-                </div>
-                <div class="delivery-option">
-                  <input type="radio"
-                    class="delivery-option-input"
-                    name="delivery-option-${matchingProduct.id}">
-                  <div>
-                    <div class="delivery-option-date">
-                      Monday, June 13
-                    </div>
-                    <div class="delivery-option-price">
-                      $9.99 - Shipping
-                    </div>
-                  </div>
-                </div>
+               ${deliveryOptionsHTML(matchingProduct)}
               </div>
             </div>
           </div>
  `;
 })
 
+
+function deliveryOptionsHTML (matchingProduct){
+  let html = ''
+  deliveryOptions.forEach((deliveryOption) => {
+    dayjs.locale('fr');
+   let today =  dayjs()
+   const deliveryDate = today.add(
+    deliveryOption.deliveryDays, 'days'
+   )
+   const dateString = deliveryDate.format(
+    'dddd D MMMM'
+   )
+
+   const priceString = deliveryOption.priceCents === 0 ? 'Gratuite ': `${formatCurrency(deliveryOption.priceCents)} € `
+   
+html+=`     
+  <div class="delivery-option">
+                  <input type="radio"
+                  checked
+                    class="delivery-option-input"
+                    name="delivery-option-${matchingProduct.id}">
+                  <div>
+                    <div class="delivery-option-date">
+                      ${dateString}
+                    </div>
+                    <div class="delivery-option-price">
+                      Livraison ${priceString} 
+                    </div>
+                  </div>
+                </div>
+
+
+`
+  })
+
+  return html
+}
 
 document.querySelector('.order-summary').innerHTML = cartSummaryHTML
 
@@ -177,15 +177,15 @@ document.querySelectorAll('.js-update-link')
   });
 
 
-  // Librairie DayJS 
+  //  Librairie DayJS 
 
-  dayjs.locale('fr');
+  // dayjs.locale('fr');
 
  
-  let today = dayjs();
+  // let today = dayjs();
 
-  // Ajouter 7 jours
-  let Sept = today.add(7, "days");
+  //  Ajouter 7 jours
+  // let Sept = today.add(7, "days");
 
-  // Afficher la date au format français
-  console.log(Sept.format("dddd, D MMMM"));
+  //  Afficher la date au format français
+  // console.log(Sept.format("dddd, D MMMM"));
