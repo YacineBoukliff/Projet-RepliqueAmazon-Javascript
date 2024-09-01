@@ -16,51 +16,51 @@ export function renderPaymentSummary() {
   });
 
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
-  const taxCents = totalBeforeTaxCents * 0.1;
+  const taxCents = totalBeforeTaxCents * 0.2;
   const totalCents = totalBeforeTaxCents + taxCents;
 
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
-      Order Summary
+      Récapitulatif de la commande
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (3):</div>
+      <div>Articles (3) :</div>
       <div class="payment-summary-money">
-        $${formatCurrency(productPriceCents)}
+        ${formatCurrency(productPriceCents)}€ 
       </div>
     </div>
 
     <div class="payment-summary-row">
-      <div>Shipping &amp; handling:</div>
+      <div>Frais d'expédition :</div>
       <div class="payment-summary-money">
-        $${formatCurrency(shippingPriceCents)}
+        ${formatCurrency(shippingPriceCents)}€ 
       </div>
     </div>
 
     <div class="payment-summary-row subtotal-row">
-      <div>Total before tax:</div>
+      <div>Total avant taxe :</div>
       <div class="payment-summary-money">
-        $${formatCurrency(totalBeforeTaxCents)}
+        ${formatCurrency(totalBeforeTaxCents)}€ 
       </div>
     </div>
 
     <div class="payment-summary-row">
-      <div>Estimated tax (10%):</div>
+      <div>TVA (20%) :</div>
       <div class="payment-summary-money">
-        $${formatCurrency(taxCents)}
+        ${formatCurrency(taxCents)}€ 
       </div>
     </div>
 
     <div class="payment-summary-row total-row">
-      <div>Order total:</div>
+      <div>Commande totale :</div>
       <div class="payment-summary-money">
-        $${formatCurrency(totalCents)}
+        ${formatCurrency(totalCents)}€ 
       </div>
     </div>
 
     <button class="place-order-button button-primary">
-      Place your order
+      Validez votre commande
     </button>
   `;
 

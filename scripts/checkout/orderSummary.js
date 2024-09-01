@@ -23,7 +23,7 @@ export function renderOrderSummary() {
       'days'
     );
     const dateString = deliveryDate.format(
-      'dddd, MMMM D'
+      'dddd D MMMM'
     );
 
     cartSummaryHTML += `
@@ -78,11 +78,11 @@ export function renderOrderSummary() {
         'days'
       );
       const dateString = deliveryDate.format(
-        'dddd, MMMM D'
+        ' dddd D MMMM'
       );
 
       const priceString = deliveryOption.priceCents === 0
-        ? 'FREE'
+        ? 'Gratuit'
         : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
